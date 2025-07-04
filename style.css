@@ -3,22 +3,12 @@
 body {
   font-family: 'Dosis', sans-serif;
   text-align: center;
-  padding: 2rem;
+  padding: 0;
   background: #f4f1ee;
   color: rgb(0, 67, 73);
 }
 
-button {
-  padding: 0.6rem 1.2rem;
-  font-size: 1.1rem;
-  margin: 1rem auto 2rem;
-  display: block;
-  background-color: rgb(0, 67, 73);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
+
 
 button:hover {
   background-color: #00575f;
@@ -29,14 +19,20 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1rem;
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: auto;
+  
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
   padding: 1rem;
+  box-sizing: border-box;
 }
+
 
 
 .card {
@@ -127,7 +123,7 @@ button:hover {
 
 #lentes-toggle {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   gap: 0.3rem;
   margin: 1.2rem 0;
@@ -240,8 +236,9 @@ input:checked + .slider:before {
   }
 
   #carta-container {
-    width: 60%;
- 
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
   }
 }
 
@@ -252,13 +249,7 @@ input:checked + .slider:before {
   font-size: 1.1rem;
 }
 
-.more-button {
-  cursor: pointer;
-  color: #007272;
-  text-decoration: underline;
-  display: inline-block;
-  margin-top: 1rem;
-}
+.more-
 
 #titulo-home {
   cursor: pointer;
@@ -297,7 +288,6 @@ input:checked + .slider:before {
     z-index: 2;
   }
 }
-
 .card.ampliada {
   position: fixed;
   top: 50%;
@@ -306,12 +296,14 @@ input:checked + .slider:before {
   max-width: 90vw;
   height: auto;
   max-height: 90vh;
-  aspect-ratio: 340 / 520; /* mantiene proporción de carta */
+  aspect-ratio: 340 / 520; /* mantiene proporción */
   transform: translate(-50%, -50%) scale(1.1) rotate(0deg) !important;
   z-index: 999;
   box-shadow: 0 0 30px rgba(0,0,0,0.4);
   transition: all 0.3s ease;
+  border-radius: 12px;
 }
+
 
 
 .carta-wrapper {
@@ -345,4 +337,136 @@ input:checked + .slider:before {
 
 .card-front {
   background: transparent !important;
+}
+
+#overlay-ampliada {
+  position: fixed;
+  inset: 0;
+  display: none; /* se activa con JS */
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0); /* completamente transparente */
+  z-index: 9999;
+  overflow: hidden;
+}
+
+#overlay-ampliada .card {
+  all: unset; /* 🧠 borra todos los estilos heredados (muy importante) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  max-width: 340px;
+  height: auto;
+  max-height: 90vh;
+  aspect-ratio: 340 / 520;
+  animation: zoomInOverlay 0.3s ease;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+
+#overlay-ampliada .card-back {
+  overflow-y: auto;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+
+
+.zona-botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem auto;
+}
+
+.zona-botones 
+
+.zona-botones #lentes-toggle {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+
+.zona-controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 90%;
+}
+
+.zona-controles 
+
+.zona-controles button:hover {
+  background-color: #007171;
+}
+
+.zona-controles #lentes-toggle {
+  display: flex;
+  gap: 1rem;
+}
+
+.zona-controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  max-width: 90%;
+}
+
+.botones-controles {
+  display: flex;
+  gap: 1rem;
+}
+
+.botones-controles button {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  background-color: #004D4D;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.botones-controles button:hover {
+  background-color: #007171;
+}
+
+#lentes-toggle {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.card.zoom-in {
+  transition: transform 0.3s ease;
+  transform: scale(1.1) rotateY(180deg);
+}
+
+.overlay-zoom {
+  animation: zoomInOverlay 0.3s ease;
+}
+
+@keyframes zoomInOverlay {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
