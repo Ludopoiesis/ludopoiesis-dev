@@ -599,7 +599,8 @@ function renderCartaTirada(carta, posIndex, tirada, container, esAcumulativo) {
       <div class="card-back">
         <h2>${tituloHTML(titulo)}</h2>
         <div class="texto-carta">${versosHTML(texto)}</div>
-      </div>
+        <img class="pie-icono" src="img/iconos/icono_${carta.lente}.png" alt="">
+      </div>        
     </div>
   `;
 
