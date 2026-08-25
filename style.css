@@ -358,11 +358,10 @@ body {
   background: #fff;
   color: var(--ink);
   transform: rotateY(180deg);
-  padding: 24px var(--carta-pad) 34px;
+  padding: 24px var(--carta-pad) 20px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: center;   /* el bloque se acomoda en el centro */
   text-align: left;
   border-top: 3px solid var(--accent);
 }
@@ -383,7 +382,7 @@ body {
   font-size: var(--verso);
   line-height: 1.45;
   color: var(--ink-soft);
-  flex: 0 1 auto;            /* antes: flex: 1 */
+  flex: 1;
   min-height: 0;
   overflow-y: auto;
   scrollbar-width: none;
