@@ -358,7 +358,7 @@ body {
   background: #fff;
   color: var(--ink);
   transform: rotateY(180deg);
-  padding: 24px var(--carta-pad) 20px;
+  padding: 24px var(--carta-pad) 34px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
