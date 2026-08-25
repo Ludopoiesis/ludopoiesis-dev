@@ -358,7 +358,7 @@ body {
   background: #fff;
   color: var(--ink);
   transform: rotateY(180deg);
-  padding: 24px var(--carta-pad) 20px;
+  padding: 24px var(--carta-pad) 16.1px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -388,6 +388,15 @@ body {
   scrollbar-width: none;
 }
 .card-back .texto-carta::-webkit-scrollbar { display: none; }
+
+.card-back .pie-icono {
+  position: absolute;
+  left: 50%;
+  bottom: 3.17%;
+  transform: translateX(-50%);
+  width: 8.43%;
+  height: auto;
+}
 
 .card-back .verso {
   display: block;
