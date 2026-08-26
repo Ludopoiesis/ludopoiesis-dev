@@ -1,6 +1,7 @@
 /* ================================================================
    LUDOPOIESIS · Dirección "Minimal Ritual"
-   Fraunces (display, light) + DM Sans (body)
+   Carta: Dosis (la del naipe impreso) · UI: Fraunces + DM Sans
+   Todas las medidas de la carta salen medidas de Tecnologia_v7.pdf
    Paleta base: #FAFAF8 + #1A1A1A · Acento dinámico por naipe activo
    ================================================================ */
 
@@ -18,8 +19,11 @@
   --accent:      #1A1A1A;
   --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
   --accent-glow: color-mix(in srgb, var(--accent) 24%, transparent); 
-  --medida:    26.4;
-  --carta-pad: 16px;
+  /* Marco del impreso: la linea mas larga mide 21.11 em de Dosis 9pt
+     y el marco util mide 21.10 em. Si un verso se parte aqui, se parte
+     tambien en el papel. */
+  --medida:    21.1;
+  --carta-pad: calc(var(--carta-w) * 0.0964);   /* 22.68 pt */
   --carta-w:   min(340px, calc(100vw - 46px));
   --verso:     calc((var(--carta-w) - 2 * var(--carta-pad)) / var(--medida));
 }
@@ -34,7 +38,7 @@ body[data-naipe="fluir"] {
   --accent:  #E96B98;
 }
 body[data-naipe="tecnologia"] {
-  --primary: #3C0F3C;
+  --primary: #421647;   /* medido del PDF */
   --accent:  #A6D656;
 }
 
@@ -306,7 +310,7 @@ body {
 /* ===== CARTA · FLIP 3D ====================================== */
 .card {
   width: var(--carta-w);     /* antes: min(280px, calc(85vw - 32px)) */
-  aspect-ratio: 280 / 428;
+  aspect-ratio: 235.276 / 348.661;
   height: auto;
   flex-shrink: 0;
   flex-grow: 0;
@@ -358,30 +362,35 @@ body {
   background: #fff;
   color: var(--ink);
   transform: rotateY(180deg);
-  padding: 24px var(--carta-pad) 16.1px;
+  /* arriba 26.37 pt (7.563% del alto) · lados 22.68 pt · abajo la franja
+     del pie: desde el texto mas bajo (310.82) hasta el borde = 37.84 pt */
+  padding: 11.21% var(--carta-pad) 16.1%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   text-align: left;
-  border-top: 3px solid var(--accent);
 }
 .card-back h2 {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: calc(var(--verso) * 1.85);
-  letter-spacing: -0.5px;
-  line-height: 1.1;
-  margin: 0 0 calc(var(--verso) * 1.2);
+  /* 14 pt sobre cuerpo 9 = 1.556 · los 68 titulos del PDF van alineados
+     a la derecha, clavados en x1 = 212.60 */
+  font-family: 'Dosis', sans-serif;
+  font-weight: 600;
+  font-size: calc(var(--verso) * 1.556);
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: right;
+  margin: 0 0 calc(var(--verso) * 2.21);   /* 19.93 pt de aire */
   color: var(--primary);
 }
 
 /* El texto es verso: cada línea del JSON es una decisión de autor.
    Se pinta línea por línea para que el salto sea estructura, no un <br>. */
 .card-back .texto-carta {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 500;
   font-size: var(--verso);
-  line-height: 1.45;
-  color: var(--ink-soft);
+  line-height: 1.111;          /* interlinea 10.0 / cuerpo 9.0 */
+  color: var(--primary);       /* una sola tinta, como el impreso */
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -392,9 +401,9 @@ body {
 .card-back .pie-icono {
   position: absolute;
   left: 50%;
-  bottom: 3.17%;
+  bottom: 2.12%;
   transform: translateX(-50%);
-  width: 8.43%;
+  width: 11.54%;   /* la tinta ocupa 73% del lienzo -> 8.43% de la carta */
   height: auto;
 }
 
@@ -409,7 +418,7 @@ body {
 }
 .card-back .verso-hueco {
   display: block;
-  height: 0.55em;   /* salto de estrofa, sin gastar una línea entera */
+  height: 1.278em;  /* estrofa 21.5 pt entre lineas - 10.0 de interlinea */
 }
 
 /* Carta ampliada en overlay (mantenido del original, refinado) */
@@ -421,7 +430,7 @@ body {
   max-width: 90vw;
   height: auto;
   max-height: 90vh;
-  aspect-ratio: 280 / 428;
+  aspect-ratio: 235.276 / 348.661;
   transform: translate(-50%, -50%) scale(1) !important;
   z-index: 999;
   border-radius: 8px;
@@ -876,8 +885,9 @@ body[data-naipe] .btn-share {
 #overlay-ampliada .card {
   all: unset;
   display: block;
-  width: min(85vw, 360px);
-  aspect-ratio: 280 / 428;
+  --carta-w: min(85vw, 360px);
+  width: var(--carta-w);
+  aspect-ratio: 235.276 / 348.661;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -889,18 +899,11 @@ body[data-naipe] .btn-share {
     0 30px 80px -10px var(--accent-glow);
   border-top: 3px solid var(--accent);
 }
+/* El overlay usa las MISMAS proporciones: solo cambia el ancho base,
+   y --verso, los margenes y el pie se recalculan solos. */
 #overlay-ampliada .card-back {
-  padding: 36px 30px;
   overflow-y: auto;
   border-top: 0;
-}
-#overlay-ampliada .card-back h2 {
-  font-size: 30px;
-  margin-bottom: 22px;
-}
-#overlay-ampliada .card-back p {
-  font-size: 14px;
-  line-height: 1.7;
 }
 
 /* ===== ANIMACIONES ========================================== */
